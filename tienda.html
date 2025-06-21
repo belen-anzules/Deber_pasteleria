@@ -1,59 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Tienda | Dulce Sabor</title>
-    <link rel="stylesheet" href="css/estilos.css" />
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>Nuestros Pasteles</h1>
-        <nav>
-          <a href="index.html">Inicio</a>
-          <a href="tienda.html">Tienda</a>
-          <a href="contacto.html">Contacto</a>
-        </nav>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <title>Tienda | Dulce Sabor</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
 
-      <main>
+<body>
+  <div class="container">
+    <header>
+      <h1>Nuestros Pasteles</h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="tienda.html">Tienda</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </header>
+
+    <main>
+      <form id="form-pedidos">
         <section class="productos">
-          <article>
+          <article data-nombre="Pastel de Chocolate">
             <img src="img/chocolate.png" alt="Pastel de Chocolate" />
             <h3>Pastel de Chocolate</h3>
             <p>$15.00</p>
+            <label>Cantidad:
+              <input type="number" name="chocolate" min="0" />
+            </label>
+            <div class="error"></div>
           </article>
-          <article>
+
+          <article data-nombre="Pastel de Fresa">
             <img src="img/fresa.jpg" alt="Pastel de Fresa" />
             <h3>Pastel de Fresa</h3>
             <p>$14.00</p>
+            <label>Cantidad:
+              <input type="number" name="fresa" min="0" />
+            </label>
+            <div class="error"></div>
           </article>
-          <article>
+
+          <article data-nombre="Pastel de Vainilla">
             <img src="img/vainilla.png" alt="Pastel de Vainilla" />
             <h3>Pastel de Vainilla</h3>
             <p>$13.50</p>
+            <label>Cantidad:
+              <input type="number" name="vainilla" min="0" />
+            </label>
+            <div class="error"></div>
           </article>
-          <article>
+
+          <article data-nombre="Pastel de Zanahoria">
             <img src="img/zanahoria.png" alt="Pastel de Zanahoria" />
             <h3>Pastel de Zanahoria</h3>
             <p>$16.00</p>
+            <label>Cantidad:
+              <input type="number" name="zanahoria" min="0" />
+            </label>
+            <div class="error"></div>
           </article>
-          <article>
+
+          <article data-nombre="Red Velvet">
             <img src="img/velvet.png" alt="Red Velvet" />
             <h3>Red Velvet</h3>
             <p>$17.00</p>
+            <label>Cantidad:
+              <input type="number" name="velvet" min="0" />
+            </label>
+            <div class="error"></div>
           </article>
-          <article>
+
+          <article data-nombre="Pastel de Limón">
             <img src="img/limon.png" alt="Pastel de Limón" />
             <h3>Pastel de Limón</h3>
             <p>$13.00</p>
+            <label>Cantidad:
+              <input type="number" name="limon" min="0" />
+            </label>
+            <div class="error"></div>
           </article>
         </section>
-      </main>
+      </form>
+    </main>
 
-      <footer>
-        <p>Visítanos y endulza tu día 🍰 © 2025 Dulce Sabor</p>
-      </footer>
-    </div>
-  </body>
+    <footer>
+      <p>Visítanos y endulza tu día 🍰 © 2025 Dulce Sabor</p>
+    </footer>
+  </div>
+
+  <script>
+    // Validación en tiempo real si se quiere
+    document.querySelectorAll('input[type="number"]').forEach((input) => {
+      input.addEventListener('input', () => {
+        const valor = input.value.trim();
+        const errorDiv = input.closest('article').querySelector('.error');
+
+        errorDiv.textContent = '';
+
+        if (valor !== '') {
+          const numero = parseInt(valor, 10);
+          if (isNaN(numero) || numero < 0) {
+            errorDiv.textContent = 'Ingrese un número válido (0 o más)';
+          }
+        }
+      });
+    });
+  </script>
+</body>
 </html>
