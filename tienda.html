@@ -20,63 +20,69 @@
     <main>
       <form id="form-pedidos">
         <section class="productos">
-          <article data-nombre="Pastel de Chocolate">
+          <article data-nombre="Pastel de Chocolate" data-precio="15.00">
             <img src="img/chocolate.png" alt="Pastel de Chocolate" />
             <h3>Pastel de Chocolate</h3>
             <p>$15.00</p>
             <label>Cantidad:
               <input type="number" name="chocolate" min="0" />
             </label>
+            <button type="button" class="agregar-carrito">Añadir al carrito</button>
             <div class="error"></div>
           </article>
 
-          <article data-nombre="Pastel de Fresa">
+          <article data-nombre="Pastel de Fresa" data-precio="14.00">
             <img src="img/fresa.jpg" alt="Pastel de Fresa" />
             <h3>Pastel de Fresa</h3>
             <p>$14.00</p>
             <label>Cantidad:
               <input type="number" name="fresa" min="0" />
             </label>
+            <button type="button" class="agregar-carrito">Añadir al carrito</button>
             <div class="error"></div>
           </article>
 
-          <article data-nombre="Pastel de Vainilla">
+          <article data-nombre="Pastel de Vainilla" data-precio="13.50">
             <img src="img/vainilla.png" alt="Pastel de Vainilla" />
             <h3>Pastel de Vainilla</h3>
             <p>$13.50</p>
             <label>Cantidad:
               <input type="number" name="vainilla" min="0" />
             </label>
+            <button type="button" class="agregar-carrito">Añadir al carrito</button>
             <div class="error"></div>
           </article>
 
-          <article data-nombre="Pastel de Zanahoria">
+          <article data-nombre="Pastel de Zanahoria" data-precio="16.00">
             <img src="img/zanahoria.png" alt="Pastel de Zanahoria" />
             <h3>Pastel de Zanahoria</h3>
             <p>$16.00</p>
             <label>Cantidad:
               <input type="number" name="zanahoria" min="0" />
             </label>
+            <button type="button" class="agregar-carrito">Añadir al carrito</button>
             <div class="error"></div>
           </article>
 
-          <article data-nombre="Red Velvet">
+          <article data-nombre="Red Velvet" data-precio="17.00">
             <img src="img/velvet.png" alt="Red Velvet" />
             <h3>Red Velvet</h3>
             <p>$17.00</p>
             <label>Cantidad:
               <input type="number" name="velvet" min="0" />
             </label>
+            <button type="button" class="agregar-carrito">Añadir al carrito</button>
             <div class="error"></div>
           </article>
 
-          <article data-nombre="Pastel de Limón">
+          <article data-nombre="Pastel de Limón" data-precio="13.00">
             <img src="img/limon.png" alt="Pastel de Limón" />
             <h3>Pastel de Limón</h3>
             <p>$13.00</p>
             <label>Cantidad:
               <input type="number" name="limon" min="0" />
             </label>
+            <button type="button" class="agregar-carrito">Añadir al carrito</button>
             <div class="error"></div>
           </article>
         </section>
@@ -89,20 +95,42 @@
   </div>
 
   <script>
-    // Validación en tiempo real si se quiere
-    document.querySelectorAll('input[type="number"]').forEach((input) => {
-      input.addEventListener('input', () => {
-        const valor = input.value.trim();
-        const errorDiv = input.closest('article').querySelector('.error');
+    const carrito = {};
 
-        errorDiv.textContent = '';
+    function agregarAlCarrito(articulo) {
+      const nombre = articulo.dataset.nombre;
+      const precio = parseFloat(articulo.dataset.precio);
+      const input = articulo.querySelector('input[type="number"]');
+      const errorDiv = articulo.querySelector('.error');
+      const cantidad = input.value.trim();
 
-        if (valor !== '') {
-          const numero = parseInt(valor, 10);
-          if (isNaN(numero) || numero < 0) {
-            errorDiv.textContent = 'Ingrese un número válido (0 o más)';
-          }
-        }
+      errorDiv.textContent = '';
+
+      if (cantidad === '') {
+        errorDiv.textContent = 'Ingrese una cantidad';
+        return;
+      }
+
+      const numero = parseInt(cantidad, 10);
+      if (isNaN(numero) || numero <= 0) {
+        errorDiv.textContent = 'Debe ser un número mayor a 0';
+        return;
+      }
+
+      carrito[nombre] = {
+        cantidad: numero,
+        precio: precio,
+        subtotal: numero * precio
+      };
+
+      // Puedes usar console.log si deseas verificar el contenido
+      console.log('Carrito actual:', carrito);
+    }
+
+    document.querySelectorAll('.agregar-carrito').forEach((boton) => {
+      boton.addEventListener('click', () => {
+        const articulo = boton.closest('article');
+        agregarAlCarrito(articulo);
       });
     });
   </script>
