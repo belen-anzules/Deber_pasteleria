@@ -17,7 +17,7 @@
       </header>
 
       <main>
-        <form action="#" method="post">
+        <form id="contactForm" action="#" method="post">
           <label for="nombre">Nombre:</label>
           <input type="text" id="nombre" name="nombre" required />
 
@@ -41,6 +41,7 @@
           </label>
 
           <button type="submit">Enviar</button>
+          <button type="button" id="btnBorrar">Borrar</button>
         </form>
       </main>
 
@@ -48,5 +49,14 @@
         <p>Visítanos y endulza tu día 🍰 © 2025 Dulce Sabor</p>
       </footer>
     </div>
+
+    <script>
+      const btnBorrar = document.getElementById('btnBorrar');
+      const form = document.getElementById('contactForm');
+
+      btnBorrar.addEventListener('click', () => {
+        form.reset(); // Limpia todos los campos
+      });
+    </script>
   </body>
 </html>
