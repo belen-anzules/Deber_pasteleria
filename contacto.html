@@ -44,9 +44,10 @@
           <button type="button" id="btnBorrar">Borrar</button>
         </form>
 
-        <div id="popupMessage" class="popup-message" style="display:none;">
-          <p>Nos contactaremos con ustedes</p>
-          <button id="btnOk">OK</button>
+        <!-- ✅ Mensaje de confirmación -->
+        <div id="mensajeEnviado" class="popup-message" style="display:none;">
+          <p><strong>¡Formulario enviado correctamente!</strong><br>Nos contactaremos lo más pronto posible.</p>
+          <button id="okEnviado">OK </button>
         </div>
       </main>
 
@@ -56,18 +57,26 @@
     </div>
 
     <script>
-      const btnBorrar = document.getElementById('btnBorrar');
       const form = document.getElementById('contactForm');
-      const popup = document.getElementById('popupMessage');
-      const btnOk = document.getElementById('btnOk');
+      const btnBorrar = document.getElementById('btnBorrar');
+      const mensajeEnviado = document.getElementById('mensajeEnviado');
+      const btnOk = document.getElementById('okEnviado');
 
-      btnBorrar.addEventListener('click', () => {
-        form.reset();
-        popup.style.display = 'block';
+      // Mostrar cuadro al enviar (sin recargar)
+      form.addEventListener('submit', (e) => {
+        e.preventDefault(); // evita recargar la página
+        mensajeEnviado.style.display = 'block';
+        form.reset(); // limpia el formulario
       });
 
+      // Botón "OK (De acuerdo)" oculta el cuadro
       btnOk.addEventListener('click', () => {
-        popup.style.display = 'none'; // Oculta el cuadro emergente al hacer clic en OK
+        mensajeEnviado.style.display = 'none';
+      });
+
+      // Borrar formulario
+      btnBorrar.addEventListener('click', () => {
+        form.reset();
       });
     </script>
   </body>
