@@ -109,4 +109,56 @@ body {
     font-weight: bold;
     color: #4b2e2e;
   }
-  
+  /* Estilos para el input cantidad dentro de los artículos productos */
+.productos input[type="number"] {
+  width: 70px;
+  padding: 0.4em 0.6em;
+  font-size: 1em;
+  border: 2px solid #d28a7c;
+  border-radius: 6px;
+  text-align: center;
+  color: #4b2e2e;
+  background-color: #fff8f0;
+  transition: border-color 0.3s ease;
+  -moz-appearance: textfield; /* para que no muestre flechas en Firefox */
+}
+
+
+
+/* Cambiar borde al hacer foco */
+.productos input[type="number"]:focus {
+  border-color: #bb7266;
+  outline: none;
+  background-color: #fff0e8;
+}
+
+/* Botón Añadir al carrito */
+.productos button.agregar-carrito {
+  margin-top: 0.8em;
+  background-color: #d28a7c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(210, 138, 124, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  width: 100%;
+  max-width: 180px;
+}
+
+/* Hover del botón */
+.productos button.agregar-carrito:hover {
+  background-color: #bb7266;
+  box-shadow: 0 6px 12px rgba(187, 114, 102, 0.8);
+}
+
+/* Activar efecto "presionado" */
+.productos button.agregar-carrito:active {
+  background-color: #a15a51;
+  box-shadow: 0 2px 4px rgba(161, 90, 81, 0.8);
+  transform: translateY(2px);
+}
