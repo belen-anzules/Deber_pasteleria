@@ -46,6 +46,7 @@
 
         <div id="popupMessage" class="popup-message" style="display:none;">
           <p>Nos contactaremos con ustedes</p>
+          <button id="btnOk">OK</button>
         </div>
       </main>
 
@@ -58,10 +59,15 @@
       const btnBorrar = document.getElementById('btnBorrar');
       const form = document.getElementById('contactForm');
       const popup = document.getElementById('popupMessage');
+      const btnOk = document.getElementById('btnOk');
 
       btnBorrar.addEventListener('click', () => {
         form.reset();
-        popup.style.display = 'block'; // Mostrar mensaje sin recargar
+        popup.style.display = 'block';
+      });
+
+      btnOk.addEventListener('click', () => {
+        popup.style.display = 'none'; // Oculta el cuadro emergente al hacer clic en OK
       });
     </script>
   </body>
