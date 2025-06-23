@@ -5,7 +5,6 @@
   <title>Tienda | Dulce Sabor</title>
   <link rel="stylesheet" href="css/estilos.css" />
   <style>
-    /* Estilos básicos para que el carrito se vea en un panel lateral */
     .carrito-panel {
       position: fixed;
       right: 10px;
@@ -22,6 +21,16 @@
     }
     .carrito-item {
       margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .carrito-item button {
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+      font-size: 16px;
     }
     .error {
       color: red;
@@ -45,6 +54,7 @@
     <main>
       <form id="form-pedidos">
         <section class="productos">
+          <!-- Lista de productos -->
           <article data-nombre="Pastel de Chocolate" data-precio="15.00">
             <img src="img/chocolate.png" alt="Pastel de Chocolate" />
             <h3>Pastel de Chocolate</h3>
@@ -119,7 +129,7 @@
     </footer>
   </div>
 
-  <!-- Panel lateral flotante del carrito (dentro del body) -->
+  <!-- Panel lateral flotante del carrito -->
   <div class="carrito-panel">
     <h2>Carrito</h2>
     <div id="carrito-lista"></div>
@@ -152,15 +162,18 @@
         return;
       }
 
-      carrito[nombre] = {
-        cantidad: numero,
-        precio: precio,
-        subtotal: numero * precio
-      };
+      if (carrito[nombre]) {
+        carrito[nombre].cantidad += numero;
+        carrito[nombre].subtotal = carrito[nombre].cantidad * precio;
+      } else {
+        carrito[nombre] = {
+          cantidad: numero,
+          precio: precio,
+          subtotal: numero * precio
+        };
+      }
 
       actualizarCarritoVisual();
-
-      console.log('Carrito actual:', carrito);
     }
 
     function actualizarCarritoVisual() {
@@ -177,7 +190,10 @@
         const precioConIVA = (item.precio * 1.15).toFixed(2);
         const div = document.createElement('div');
         div.className = 'carrito-item';
-        div.textContent = `${nombre} x${item.cantidad} - $${precioConIVA} c/u`;
+        div.innerHTML = `
+          <span>${nombre} x${item.cantidad} - $${precioConIVA} c/u</span>
+          <button onclick="eliminarItem('${nombre}')">❌</button>
+        `;
         lista.appendChild(div);
         subtotal += item.precio * item.cantidad;
       }
@@ -188,6 +204,11 @@
       subtotalSpan.textContent = subtotal.toFixed(2);
       ivaSpan.textContent = iva.toFixed(2);
       totalSpan.textContent = total.toFixed(2);
+    }
+
+    function eliminarItem(nombre) {
+      delete carrito[nombre];
+      actualizarCarritoVisual();
     }
 
     document.querySelectorAll('.agregar-carrito').forEach((boton) => {
