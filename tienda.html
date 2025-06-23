@@ -4,6 +4,31 @@
   <meta charset="UTF-8" />
   <title>Tienda | Dulce Sabor</title>
   <link rel="stylesheet" href="css/estilos.css" />
+  <style>
+    /* Estilos básicos para que el carrito se vea en un panel lateral */
+    .carrito-panel {
+      position: fixed;
+      right: 10px;
+      top: 60px;
+      width: 250px;
+      background: #fff8f0;
+      border: 1px solid #ccc;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .carrito-item {
+      margin-bottom: 8px;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  </style>
 </head>
 
 <body>
@@ -94,6 +119,16 @@
     </footer>
   </div>
 
+  <!-- Panel lateral flotante del carrito (dentro del body) -->
+  <div class="carrito-panel">
+    <h2>Carrito</h2>
+    <div id="carrito-lista"></div>
+    <hr />
+    <p>Subtotal: $<span id="subtotal">0.00</span></p>
+    <p>IVA (15%): $<span id="iva">0.00</span></p>
+    <p><strong>Total: $<span id="total">0.00</span></strong></p>
+  </div>
+
   <script>
     const carrito = {};
 
@@ -123,8 +158,36 @@
         subtotal: numero * precio
       };
 
-      // Puedes usar console.log si deseas verificar el contenido
+      actualizarCarritoVisual();
+
       console.log('Carrito actual:', carrito);
+    }
+
+    function actualizarCarritoVisual() {
+      const lista = document.getElementById('carrito-lista');
+      const subtotalSpan = document.getElementById('subtotal');
+      const ivaSpan = document.getElementById('iva');
+      const totalSpan = document.getElementById('total');
+
+      lista.innerHTML = '';
+      let subtotal = 0;
+
+      for (let nombre in carrito) {
+        const item = carrito[nombre];
+        const precioConIVA = (item.precio * 1.15).toFixed(2);
+        const div = document.createElement('div');
+        div.className = 'carrito-item';
+        div.textContent = `${nombre} x${item.cantidad} - $${precioConIVA} c/u`;
+        lista.appendChild(div);
+        subtotal += item.precio * item.cantidad;
+      }
+
+      const iva = subtotal * 0.15;
+      const total = subtotal + iva;
+
+      subtotalSpan.textContent = subtotal.toFixed(2);
+      ivaSpan.textContent = iva.toFixed(2);
+      totalSpan.textContent = total.toFixed(2);
     }
 
     document.querySelectorAll('.agregar-carrito').forEach((boton) => {
@@ -136,12 +199,3 @@
   </script>
 </body>
 </html>
-<!-- Panel lateral flotante del carrito -->
-<div class="carrito-panel">
-  <h2>Carrito</h2>
-  <div id="carrito-lista"></div>
-  <hr />
-  <p>Subtotal: $<span id="subtotal">0.00</span></p>
-  <p>IVA (15%): $<span id="iva">0.00</span></p>
-  <p><strong>Total: $<span id="total">0.00</span></strong></p>
-</div>
