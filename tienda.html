@@ -37,6 +37,21 @@
       font-size: 12px;
       margin-top: 4px;
     }
+    #vaciar-carrito {
+      background: #f44336;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      width: 100%;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    #vaciar-carrito:hover {
+      background: #d32f2f;
+    }
   </style>
 </head>
 
@@ -132,6 +147,7 @@
   <!-- Panel lateral flotante del carrito -->
   <div class="carrito-panel">
     <h2>Carrito</h2>
+    <button id="vaciar-carrito">Vaciar carrito</button>
     <div id="carrito-lista"></div>
     <hr />
     <p>Subtotal: $<span id="subtotal">0.00</span></p>
@@ -211,12 +227,21 @@
       actualizarCarritoVisual();
     }
 
+    function vaciarCarrito() {
+      for (let key in carrito) {
+        delete carrito[key];
+      }
+      actualizarCarritoVisual();
+    }
+
     document.querySelectorAll('.agregar-carrito').forEach((boton) => {
       boton.addEventListener('click', () => {
         const articulo = boton.closest('article');
         agregarAlCarrito(articulo);
       });
     });
+
+    document.getElementById('vaciar-carrito').addEventListener('click', vaciarCarrito);
   </script>
 </body>
 </html>
