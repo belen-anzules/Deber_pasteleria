@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <title>Contacto | Dulce Sabor</title>
     <link rel="stylesheet" href="css/estilos.css" />
+    <style>
+      .popup-message {
+        background-color: #fff4e6;
+        border: 1px solid #ffa94d;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+      #mensajeEnviado p {
+        margin: 0.5rem 0;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -48,8 +60,9 @@
         <!-- Cuadro a la derecha -->
         <div id="mensajeEnviado" style="display:none; flex: 1;">
           <div class="popup-message">
-            <p><strong>¡Formulario enviado correctamente!</strong><br>
-            Nos contactaremos lo más pronto posible.</p>
+            <p><strong>¡Formulario enviado correctamente!</strong></p>
+            <div id="resumenDatos" style="margin-top: 1rem;"></div>
+            <p>Nos contactaremos lo más pronto posible.</p>
             <button id="okEnviado">OK (De acuerdo)</button>
           </div>
         </div>
@@ -59,28 +72,44 @@
         <p>Visítanos y endulza tu día 🍰 © 2025 Dulce Sabor</p>
       </footer>
 
-    <script>
-      const form = document.getElementById('contactForm');
-      const btnBorrar = document.getElementById('btnBorrar');
-      const mensajeEnviado = document.getElementById('mensajeEnviado');
-      const btnOk = document.getElementById('okEnviado');
+      <script>
+        const form = document.getElementById('contactForm');
+        const btnBorrar = document.getElementById('btnBorrar');
+        const mensajeEnviado = document.getElementById('mensajeEnviado');
+        const btnOk = document.getElementById('okEnviado');
+        const resumenDatos = document.getElementById('resumenDatos');
 
-      // Mostrar cuadro al enviar
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        mensajeEnviado.style.display = 'block';
-        form.reset();
-      });
+        // Mostrar cuadro al enviar
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
 
-      // Botón OK
-      btnOk.addEventListener('click', () => {
-        mensajeEnviado.style.display = 'none';
-      });
+          const nombre = document.getElementById('nombre').value;
+          const email = document.getElementById('email').value;
+          const pastel = document.getElementById('pastel').value;
+          const comentarios = document.getElementById('comentarios').value;
 
-      // Botón Borrar
-      btnBorrar.addEventListener('click', () => {
-        form.reset();
-      });
-    </script>
+          resumenDatos.innerHTML = `
+            <p><strong>Nombre:</strong> ${nombre}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Tipo de pastel:</strong> ${pastel}</p>
+            <p><strong>Comentarios:</strong> ${comentarios || "Ninguno"}</p>
+          `;
+
+          mensajeEnviado.style.display = 'block';
+        });
+
+        // Botón OK
+        btnOk.addEventListener('click', () => {
+          mensajeEnviado.style.display = 'none';
+          resumenDatos.innerHTML = '';
+          form.reset();
+        });
+
+        // Botón Borrar
+        btnBorrar.addEventListener('click', () => {
+          form.reset();
+        });
+      </script>
+    </div>
   </body>
 </html>
