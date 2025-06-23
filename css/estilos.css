@@ -186,3 +186,22 @@ body {
 .popup-message button:hover {
   background-color: #4e874e;
 }
+.carrito-panel {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 250px;
+  background-color: #f9f9f9;
+  border-left: 2px solid #eee;
+  padding: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.carrito-panel h2 {
+  margin-top: 0;
+}
+.carrito-item {
+  margin-bottom: 10px;
+}
